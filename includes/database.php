@@ -8,7 +8,6 @@ $username = 'root';
 $password = '';
 
 // This is the PDO object
-$db = new PDO($dsn, $username, $password);
 
 try{
     $db = new PDO($dsn, $username, $password);

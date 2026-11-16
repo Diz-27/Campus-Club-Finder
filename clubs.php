@@ -6,22 +6,41 @@ require_once __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/classes/Club.php';
 
 // Writing the SELECT from the two tables, remember that order matters.
-function getClubs(PDO $db, int $categoryId = 0): array{
+// I changed $categoryId into null instead of 0. We shall see if this will show all clubs.
+// make another sql statement will select all without the where.
+function getClubs(PDO $db, int $categoryId = null): array{
+
     $sql = 'SELECT categories.category_id, categories.category_name, clubs.club_id, clubs.club_name, clubs.description, clubs.meeting_time, clubs.meeting_location, clubs.contact_email
             FROM clubs
             JOIN categories ON clubs.category_id = categories.category_id
             WHERE clubs.category_id = :filter_id
-            ORDER BY clubs.club_name ASC;';
+            ORDER BY clubs.club_name;';
+
+    $sqlAll = 'SELECT *
+               FROM clubs
+            JOIN categories ON clubs.category_id = categories.category_id
+            ORDER BY clubs.club_name;';
 
     // This is the PDO statement
-    $statement = $db->prepare($sql);
-    //This is the collection of everything because of fetchAll
+    if (!$categoryId == null){
+        $statement = $db->prepare($sql);
+            //This is the collection of everything because of fetchAll
     // we used this to bind the query and it doesn't return anything. It just runs it.
     // :filter_id is the named placeholder.
     $statement->execute([
         'filter_id' => $categoryId > 0 ? $categoryId : '*',
     ]);
-    $clubSet = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+
+    }
+    else{
+        $statement = $db->query($sqlAll);
+    }
+
+    
+    
+
+$clubSet = $statement->fetchAll(PDO::FETCH_ASSOC);
     //This is the array the function must return to
     $clubs = [];
     foreach($clubSet as $row){
@@ -29,12 +48,10 @@ function getClubs(PDO $db, int $categoryId = 0): array{
     }
     // returns to the $clubs array
     return $clubs;
-
     
     
 }
 // Turn each row into a Club with Club::fromRow()
-$clubs = getClubs($db);
 
 function getCategories(PDO $db): array{
     $sql = 'SELECT categories.category_id, categories.category_name
@@ -59,7 +76,8 @@ if ($submittedCategory !== false && $submittedCategory !== null){
     $categoryId = $submittedCategory;
 }
 
-
+// Order matters and the variable wasn't set yet. It's best to call it after the $submittedCategory
+$clubs = getClubs($db, $submittedCategory);
 ?>
 
 
@@ -78,7 +96,6 @@ if ($submittedCategory !== false && $submittedCategory !== null){
 
         <label for="category_id">Choose a Category:</label>
         <select name="category_id" id="category_id">
-            // decided to put all categories outside the foreach. I'm sure this is how it was supposed to be.
             <option value="" <?= $categoryId === null ? 'selected': '' ?>>All categories</option>
 
             <!-- value sends the category's ID when the form is submitted.
@@ -107,8 +124,8 @@ if ($submittedCategory !== false && $submittedCategory !== null){
              <?php foreach ($clubs as $club): ?>
                 <tr>
                     <!-- is this where i make each club name link to club.php?id... from Mileston 3 step 4? -->
-                    <td><a href="club.php?id=<?= $club->club_id ?>"></a>
-                    <?= htmlspecialchars($club->club_name) ?></td>
+                    <td><a href='club.php?id=<?= $club->club_id ?>'>
+                    <?= htmlspecialchars($club->club_name) ?></a></td>
 
                     <td><?= htmlspecialchars($club->category_name) ?></td>
                     <td><?= htmlspecialchars($club->meeting_time) ?></td>

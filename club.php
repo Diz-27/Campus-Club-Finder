@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 //require_once makes sure there isn't a collision with multiple people using the same database.
 require __DIR__ . '/includes/database.php';
@@ -15,12 +14,12 @@ require_once __DIR__ . '/classes/Club.php';
 
 // $club = Club::fromRow($row);
 function getClub(PDO $db, int $id): ?Club{
-    'SELECT categories.category_id, categories.category_name, clubs.club_id, clubs.club_name, clubs.description, clubs.meeting_time, clubs.meeting_location, clubs.contact_email
+    $sql = 'SELECT categories.category_id, categories.category_name, clubs.club_id, clubs.club_name, clubs.description, clubs.meeting_time, clubs.meeting_location, clubs.contact_email
             FROM clubs
             JOIN categories ON clubs.category_id = categories.category_id
             WHERE clubs.club_id = :filter_id';
 
-    $statement = $db->query($sql);
+    $statement = $db->prepare($sql);
     // Remember that :filter_id is a named placeholder.
     $statement->execute([
         ':filter_id'=> $id,

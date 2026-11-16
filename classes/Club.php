@@ -24,7 +24,9 @@ class Club{
      )
 
      {
+        $this->category_id = $category_id;
         $this->category_name = $category_name;
+        $this->club_id = $club_id;
         $this->club_name = $club_name;
         $this->description = $description;
         $this->meeting_time = $meeting_time;
