@@ -49,8 +49,12 @@ $errors = [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club</title>
+    <link rel="stylesheet" href="styles.css">
 
-    <h1><a href="clubs.php">All Clubs</a></h1>
+  
+</head>
+<body>
+      <h1><a href="clubs.php">All Clubs</a></h1>
 
     <!-- Validating Clubs -->
     <?php if (!$club == null): ?>
@@ -64,8 +68,5 @@ $errors = [];
          <p>No clubs were found in this category</p>
 
     <?php endif; ?>
-</head>
-<body>
-    
 </body>
 </html>

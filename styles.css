@@ -1,0 +1,163 @@
+/* box-sizing includes padding and borders on the page's total width*/
+
+*{
+    box-sizing: border-box;
+}
+/* max-width prevents page from becoming too wide. */
+
+/*margin adds 50px of top/bottome space and centers the page horizontally*/
+
+/*padding adds 25px of space inside the left and right edges*/
+
+/*line-height adds space between lines of text.*/
+
+/*The difference between backgroun-color and regular color is that they change the page background and set the default text color respectfully.*/
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 25px;
+    line-height: 1.6;
+    background-color: #f3f6fa;
+    color: #263445;
+}
+
+/*margin-bottom creates space between the heading and whatever comes next*/
+
+/*border-bottom creates the gold line underneath*/
+
+/*padding-bottom creates space between the heading text and the gold line.*/
+h1{
+    color: #142B45;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    border-bottom: 4px solid #e7b968;
+    padding-bottom: 12px;
+}
+
+a{
+    color: #315e8a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/*This is almost similar to javascript. By interacting with the link it changes the text with an underline*/
+a:hover{
+    color: #142b45;
+    text-decoration: underline;
+}
+
+/*Remember that padding adds space inside the form*/
+
+/*Border creates a thin outline*/
+
+/*Border-radius rounds the corners*/
+
+/*Margin-top adds space above the form.*/
+
+/*Box-shadow creates a subtle shadow behind it*/
+form {
+    background-color: white;
+    padding: 25px;
+    border: 1px solid #dce3eb;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+label{
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #142b45;
+}
+
+/*Width:100% makes the dropdown fill its avaiable space.*/
+
+/*Padding makes the dropdown taller and easier to use.*/
+select{
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #263445;
+    margin-bottom: 18px;
+}
+
+select:focus{
+    outline: none;
+    border-color: #315e8a;
+    box-shadow: 0 0 0 3px rgba(49, 94, 138, 0.15);
+}
+
+button{
+    background-color: #142B45;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/*transform: translateY(-1px) moves the button upward by one pixel*/
+button:hover{
+    background-color: #315e8a;
+    transform: translateY(-1px);
+}
+
+
+/*width:100% makes the table fill its container
+
+border-collapse: collapse combines table borders instead of displaying seperate borders around every cell*/
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 25px;
+    border: 1px solid #dce3eb;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+th{
+    background-color: #142B45;
+    color: white;
+    text-align: left;
+    padding: 15px;
+}
+
+td{
+    padding: 14px 15px;
+    border-bottom: 1px solid #dce3eb;
+}
+
+/*nth-child(even) selects every second row*/
+tbody tr:nth-child(even){
+    background-color: #f3f6fa;
+}
+
+tbody tr:hover{
+    background-color: #e7eef6;
+}
+
+/*body > p means find the <body> element. Then select paragraphs that are direct children of the body.
+
+This works with the structure where the club details are directly inside <body>*/
+body > p{
+    background-color: white;
+    padding: 15px 18px;
+    margin: 12px 0;
+    border: 1px solid #dce3eb;
+    border-left: 5px solid #e7b968;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
