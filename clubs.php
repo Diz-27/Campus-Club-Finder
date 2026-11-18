@@ -22,15 +22,14 @@ function getClubs(PDO $db, int $categoryId = null): array{
             ORDER BY clubs.club_name;';
 
     // This is the PDO statement
-    if (!$categoryId == null){
+    if ($categoryId != null){
         $statement = $db->prepare($sql);
             //This is the collection of everything because of fetchAll
-    // we used this to bind the query and it doesn't return anything. It just runs it.
-    // :filter_id is the named placeholder.
-    $statement->execute([
-        'filter_id' => $categoryId > 0 ? $categoryId : '*',
+            // we used this to bind the query and it doesn't return anything. It just runs it.
+            // :filter_id is the named placeholder.
+            $statement->execute([
+                'filter_id' => $categoryId
     ]);
-    
 
     }
     else{
@@ -68,13 +67,13 @@ function getCategories(PDO $db): array{
 $categories = getCategories($db);
 
 // Validate the category
-$submittedCategory = filter_input(INPUT_GET, 'category_id', FILTER_VALIDATE_INT);
+$submittedCategory = filter_input(INPUT_POST, 'category_id', FILTER_VALIDATE_INT);
 
 $categoryId = null;
 
-if ($submittedCategory !== false && $submittedCategory !== null){
-    $categoryId = $submittedCategory;
-}
+// if ($submittedCategory !== false && $submittedCategory !== null){
+//     $categoryId = $submittedCategory;
+// }
 
 // Order matters and the variable wasn't set yet. It's best to call it after the $submittedCategory
 $clubs = getClubs($db, $submittedCategory);
